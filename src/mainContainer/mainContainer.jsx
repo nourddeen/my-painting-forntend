@@ -5,9 +5,7 @@ import NewPaintingCOmponent from './newPaintingComponent/newPaintingComponent'
 
 const MainContainer = ()=>{
     const [paintings , setPaintings]= useState([])
-    const [imageIds, setImageIds] = useState();
     const [image, setImage ] = useState("");
-    const [ url, setUrl ] = useState("");
     const getPaintings = async () =>{
         try{
             const getPaintingsResponse = await fetch('https://mypainting-backend.herokuapp.com/')
@@ -52,7 +50,7 @@ const MainContainer = ()=>{
             console.log(err)
         }
     }
-    const deletePainting = async (paintingId) =>{
+    const deletePainting = async (paintingId ) =>{
         console.log()
         try{
             const deleteResponse = await fetch(`https://mypainting-backend.herokuapp.com/${paintingId}`,{
@@ -71,13 +69,48 @@ const MainContainer = ()=>{
         }
         
     }
-    useEffect(() => getPaintings, [])
+    const updatePainting = async (newPaintingId , paintingToUpdate) =>{
+        try {
+            const data = new FormData()
+            data.append("file", image)
+            data.append("upload_preset", "nourddeen")
+
+            const updateImage = await fetch(`https://api.cloudinary.com/v1_1/nourddeen-test/image/upload`,{
+                method:"PUT",
+                body: data
+            })
+            const paresedImageResponse = await updateImage.json()
+            paintingToUpdate.image = await paresedImageResponse.url
+            console.log("updated painting\n", paintingToUpdate)
+            const createApiResponse = await fetch(`https://mypainting-backend.herokuapp.com/${newPaintingId}`,{
+            method : "PUT",
+            body : JSON.stringify(paintingToUpdate),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        console.log(createApiResponse)
+        const parsedCreateApi = await createApiResponse.json()
+        console.log('here')
+        console.log(parsedCreateApi)
+        if(parsedCreateApi.success){
+            const updatedPainting = paintings.map(paniting => paniting._id === newPaintingId ? paintingToUpdate : paniting)
+            setPaintings(updatedPainting)
+        }else{
+            console.log('cloudnt create')
+        }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    
+    useEffect(getPaintings, [])
 
     return(
         <div className="main-container">
             <NewPaintingCOmponent createNewPainting={createNewPainting} setImage={setImage}/>
             {paintings.map((item)=>{
-                return <SinglePaintingComponent key={item._id} painting={item} deletePainting={deletePainting}/>
+                return <SinglePaintingComponent key={item._id} painting={item} deletePainting={deletePainting} updatePainting={updatePainting} setImage={setImage}/>
             })}
         </div>
     )
