@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react'
+import {Link, Route, Routes } from "react-router-dom";
 import SinglePaintingComponent from './singlePaintingComponent/singlePaintingComponent'
-import NewPaintingCOmponent from './newPaintingComponent/newPaintingComponent'
+import NewPaintingComponent from './newPaintingComponent/newPaintingComponent'
+import "./mainContainer.css"
 
 
 const MainContainer = ()=>{
@@ -104,14 +106,28 @@ const MainContainer = ()=>{
         }
     }
     
-    useEffect(getPaintings, [])
+    useEffect(()=>{getPaintings()}, [])
 
     return(
-        <div className="main-container">
-            <NewPaintingCOmponent createNewPainting={createNewPainting} setImage={setImage}/>
-            {paintings.map((item)=>{
-                return <SinglePaintingComponent key={item._id} painting={item} deletePainting={deletePainting} updatePainting={updatePainting} setImage={setImage}/>
-            })}
+        <div >
+        <nav className="nav">
+        <div className="nav-brand">
+          <h1>My Painting</h1>
+        </div>
+        <ul className="nav-items">
+          <li ><Link className='list' to="/"><h1>Gallery</h1></Link></li>
+          <li ><Link className='list' to="/upload"><h1>Upload</h1></Link></li>
+        </ul>
+      </nav>
+      <div className="main-container">
+         <Routes>
+        <Route element={<NewPaintingComponent createNewPainting={createNewPainting} setImage={setImage}/>} path="/upload" />
+        <Route element={paintings.map((item)=>{
+                return <div className='maybe'><SinglePaintingComponent key={item._id} painting={item} deletePainting={deletePainting} updatePainting={updatePainting} setImage={setImage}/></div>
+            })} path="/" />
+        </Routes> 
+        </div>
+      
         </div>
     )
 }

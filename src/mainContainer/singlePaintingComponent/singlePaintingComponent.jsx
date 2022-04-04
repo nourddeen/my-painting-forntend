@@ -1,4 +1,5 @@
 import { useState } from "react"
+import './singlePaintingComponent.css'
 
 const SinglePaintingComponent = (props)=>{
     const [isShowing , setIsShowing]=useState(false)
@@ -39,12 +40,15 @@ const SinglePaintingComponent = (props)=>{
         }
     }
     return(
-        <div>
-            <h2>Artist : {props.painting.artistName}</h2>
-            <img src={props.painting.image} alt="img"/>            
-            <h2>Painting Title : {props.painting.paintingTitle}</h2>
-            <h2>Height : {props.painting.paintingHeight}</h2>
-            <h2>Width : {props.painting.paintingWidth}</h2>
+        <div className="main-div">
+            <div className="single-item-div">
+                <h2>Artist : {props.painting.artistName}</h2>
+                <img className="img" src={props.painting.image} alt="img"/>            
+                <h2>Painting Title : {props.painting.paintingTitle}</h2>
+                <h2>Height : {props.painting.paintingHeight}</h2>
+                <h2>Width : {props.painting.paintingWidth}</h2> 
+            </div>
+
             <button onClick={()=>props.deletePainting(props.painting._id)}>Delete</button>
 
             {isShowing ? 
@@ -56,6 +60,7 @@ const SinglePaintingComponent = (props)=>{
                 painting Height: <input onChange={handleInputChange} type="Number" name="paintingHeight" value={updatePainting.paintingHeight}/><br/>
                 painting Width: <input onChange={handleInputChange} type="Number" name="paintingWidth" value={updatePainting.paintingWidth}/><br/>
                 <button type="submit">submit</button>
+                <button onClick={toggleIsShowing}>Cancel</button>
             </form>
             </div>
             :

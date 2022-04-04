@@ -1,6 +1,7 @@
 import { useState } from "react"
+import './newPainting.css'
 
-const NewPaintingCOmponent = (props) =>{
+const NewPaintingComponent = (props) =>{
     const [ previewSorce , setPreviewSorce]=useState()
     const [newPainting, setNewPainting] = useState({
         paintingTitle: "",
@@ -58,4 +59,4 @@ const NewPaintingCOmponent = (props) =>{
         </div>
     )
 }
-export default NewPaintingCOmponent
+export default NewPaintingComponent

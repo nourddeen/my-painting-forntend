@@ -1,0 +1,10 @@
+.new-painting-component{
+    height: 100vh;
+}
+
+img, svg {
+    vertical-align: middle;
+    width: 600px;
+    height: 600px;
+    margin: 10px;
+}
