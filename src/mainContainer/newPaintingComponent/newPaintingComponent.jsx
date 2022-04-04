@@ -44,11 +44,11 @@ const NewPaintingComponent = (props) =>{
     return(
         <div className="new-painting-component">
             <form onSubmit={submitNewPainting}>
-                Painting Title : <input onChange={handleInputChange} type="text" name="paintingTitle" value={newPainting.paintingTitle}/><br/>
-                Artist Name : <input onChange={handleInputChange} type="text" name="artistName" value={newPainting.artistName}/><br/>
-                Upload a photo: <input onChange={handleFileInputChange} type="file" id="image" name="image" value={newPainting.image}></input><br/>
-                painting Height: <input onChange={handleInputChange} type="Number" name="paintingHeight" value={newPainting.paintingHeight}/><br/>
-                painting Width: <input onChange={handleInputChange} type="Number" name="paintingWidth" value={newPainting.paintingWidth}/><br/>
+                Painting Title : <input required minLength={3} onChange={handleInputChange} type="text" name="paintingTitle" value={newPainting.paintingTitle}/><br/>
+                Artist Name : <input required minLength={3} onChange={handleInputChange} type="text" name="artistName" value={newPainting.artistName}/><br/>
+                Upload a photo: <input required onChange={handleFileInputChange} type="file" id="image" name="image" value={newPainting.image}></input><br/>
+                painting Height in cm: <input onChange={handleInputChange} type="Number" name="paintingHeight" value={newPainting.paintingHeight}/><br/>
+                painting Width in cm: <input onChange={handleInputChange} type="Number" name="paintingWidth" value={newPainting.paintingWidth}/><br/>
                 <button type="submit">submit</button>
             </form>
             {previewSorce ?
