@@ -9,7 +9,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    text-align: center;    margin: 3%;
+    text-align: center;
+    margin: 3%;
     margin: 0;
     width: 100vw;    
 }
@@ -18,11 +19,10 @@ li{
 }
 ul{
     display: flex;
-
     gap: 10%;
 }
 .maybe{
-    margin: 3%;
+    margin: 2%;
 }
 h1{
     color: black;
